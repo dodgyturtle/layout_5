@@ -24,7 +24,11 @@ def save_to_html(
     book_index_pages = list(chunked(chunked_books, 20))
     page_count = len(book_index_pages)
     for index_filename, book_index_page in enumerate(book_index_pages, 1):
-        rendered_page = template.render(chunked_books=book_index_page, page_number = index_filename, page_count=page_count)
+        rendered_page = template.render(
+            chunked_books=book_index_page,
+            page_number=index_filename,
+            page_count=page_count,
+        )
         index_filename = f"index{index_filename}.html"
         index_filepath = os.path.join(directorypath, index_filename)
         with open(index_filepath, "w", encoding="utf8") as file:
@@ -34,7 +38,7 @@ def save_to_html(
 def on_reload(
     watched_file: str,
     root_directory: str = ".",
-    default_index_filename: str = "pages/index1.html"
+    default_index_filename: str = "pages/index1.html",
 ):
     server = Server()
     server.watch(watched_file, save_to_html)
