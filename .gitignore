@@ -129,7 +129,5 @@ dmypy.json
 .DS_Store
 .vscode/settings.json
 
-/books
-/images
 /json
 setup.cfg
