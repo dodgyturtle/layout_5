@@ -36,25 +36,18 @@ def save_to_html(
             file.write(rendered_page)
 
 
-def on_reload(
-    watched_file: str,
-    html_files_directory: str,
-    root_directory: str = ".",
-    default_html_file: str = "statics/pages/bookspage1.html",
-):
-    server = Server()
-    books_description = load_books_description(watched_file)
-    server.watch(watched_file, save_to_html(books_description, html_files_directory))
-    server.serve(root=root_directory, default_filename=default_html_file)
-
-
 def main():
     html_files_directory = "statics/pages"
     books_description_file = "statics/json/book_desc.json"
+    root_directory = "."
+    default_html_file = "statics/pages/bookspage1.html"
+    server = Server()
     books_description = load_books_description(books_description_file)
     os.makedirs(html_files_directory, exist_ok=True)
-    save_to_html(books_description, html_files_directory)
-    on_reload(books_description_file, html_files_directory=html_files_directory)
+    server.watch(
+        books_description_file, save_to_html(books_description, html_files_directory)
+    )
+    server.serve(root=root_directory, default_filename=default_html_file)
 
 
 if __name__ == "__main__":
