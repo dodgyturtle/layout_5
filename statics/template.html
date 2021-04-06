@@ -25,23 +25,23 @@
             {% else %}
           <li class="page-item">
             {% endif %}
-            <a class="page-link" href="../../statics/pages/index{{page_number - 1}}.html">Previous</a>
+            <a class="page-link" href="../../statics/pages/bookspage{{page_number - 1}}.html">Previous</a>
           </li>
-          {% for page in range(1, page_count + 1)%}
+          {% for page in range(1, pages_count + 1)%}
           {% if page == page_number %}
           <li class="page-item active">
             {% else %}
           <li class="page-item">
             {% endif %}
-            <a class="page-link" href="../../statics/pages/index{{page}}.html">{{ page }}</a>
+            <a class="page-link" href="../../statics/pages/bookspage{{page}}.html">{{ page }}</a>
           </li>
           {% endfor %}
-          {% if page_number == page_count %}
+          {% if page_number == pages_count %}
           <li class="page-item disabled">
             {% else %}
           <li class="page-item">
             {% endif %}
-            <a class="page-link" href="../../statics/pages/index{{page_number + 1}}.html">Next</a>
+            <a class="page-link" href="../../statics/pages/bookspage{{page_number + 1}}.html">Next</a>
           </li>
         </ul>
       </nav>
