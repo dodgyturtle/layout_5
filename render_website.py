@@ -16,13 +16,15 @@ def load_books_description(file: str) -> dict:
 def save_to_html(
     books_description: dict, directory_path: str, template_file: str = "template.html"
 ):
+    books_column_count=2
+    quantity_books_on_page=20
     env = Environment(
         loader=FileSystemLoader("statics"),
         autoescape=select_autoescape(["html", "xml"]),
     )
     template = env.get_template(template_file)
-    chunked_books = chunked(books_description, 2)
-    books_pages = list(chunked(chunked_books, 20))
+    chunked_books = chunked(books_description, books_column_count)
+    books_pages = list(chunked(chunked_books, quantity_books_on_page))
     pages_count = len(books_pages)
     for number, books_page in enumerate(books_pages, 1):
         rendered_page = template.render(
