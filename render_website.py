@@ -19,7 +19,7 @@ def save_to_html(
     books_column_count=2
     quantity_books_on_page=20
     env = Environment(
-        loader=FileSystemLoader("statics"),
+        loader=FileSystemLoader("."),
         autoescape=select_autoescape(["html", "xml"]),
     )
     template = env.get_template(template_file)
@@ -39,10 +39,10 @@ def save_to_html(
 
 
 def main():
-    html_files_directory = "statics/pages"
-    books_description_file = "statics/json/book_desc.json"
+    html_files_directory = "pages"
+    books_description_file = "media/json/book_desc.json"
     root_directory = "."
-    default_html_file = "statics/pages/bookspage1.html"
+    default_html_file = "pages/bookspage1.html"
     server = Server()
     books_description = load_books_description(books_description_file)
     os.makedirs(html_files_directory, exist_ok=True)
