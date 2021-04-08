@@ -43,11 +43,15 @@ def main():
     books_description_file = "media/json/book_desc.json"
     root_directory = "."
     default_html_file = "pages/bookspage1.html"
+    html_template='template.html'
     server = Server()
     books_description = load_books_description(books_description_file)
     os.makedirs(html_files_directory, exist_ok=True)
     server.watch(
         books_description_file, save_to_html(books_description, html_files_directory)
+    )
+    server.watch(
+        html_template, save_to_html(books_description, html_files_directory)
     )
     server.serve(root=root_directory, default_filename=default_html_file)
 
