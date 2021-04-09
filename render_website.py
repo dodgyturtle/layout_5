@@ -1,6 +1,7 @@
 import json
 import os
 
+from functools import partial
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from livereload import Server
 from more_itertools import chunked
@@ -16,8 +17,8 @@ def load_books_description(file: str) -> dict:
 def save_to_html(
     books_description: dict, directory_path: str, template_file: str = "template.html"
 ):
-    books_column_count=2
-    quantity_books_on_page=20
+    books_column_count = 2
+    quantity_books_on_page = 20
     env = Environment(
         loader=FileSystemLoader("."),
         autoescape=select_autoescape(["html", "xml"]),
@@ -43,16 +44,15 @@ def main():
     books_description_file = "media/json/book_desc.json"
     root_directory = "."
     default_html_file = "pages/bookspage1.html"
-    html_template='template.html'
+    html_template = "template.html"
     server = Server()
     books_description = load_books_description(books_description_file)
     os.makedirs(html_files_directory, exist_ok=True)
-    server.watch(
-        books_description_file, save_to_html(books_description, html_files_directory)
+    save_to_html_partial = partial(
+        save_to_html, books_description, html_files_directory
     )
-    server.watch(
-        html_template, save_to_html(books_description, html_files_directory)
-    )
+    server.watch(books_description_file, save_to_html_partial)
+    server.watch(html_template, save_to_html_partial)
     server.serve(root=root_directory, default_filename=default_html_file)
 
 
