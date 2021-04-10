@@ -48,6 +48,7 @@ def main():
     server = Server()
     books_description = load_books_description(books_description_file)
     os.makedirs(html_files_directory, exist_ok=True)
+    save_to_html(books_description, html_files_directory)
     save_to_html_partial = partial(
         save_to_html, books_description, html_files_directory
     )
